@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="oecobtPU" 
+                      transaction-type="JTA">
+<!--    <persistence-unit name="oecobtPU"   
+                          transaction-type="RESOURCE_LOCAL">
+        <class>com.vaia.cbs.oeobt.entity.Customer</class>
+        <class>com.vaia.cbs.oeobt.entity.Loan</class>        -->
+        <jta-data-source>jdbc/oecobt</jta-data-source>
+        <properties>
+            <property name="javax.persistence.jdbc.driver" 
+                      value="org.postgresql.Driver"/>
+            <property name="javax.persistence.jdbc.url" 
+                      value="jdbc:postgresql://localhost:5432/oecobt"/>
+            <property name="javax.persistence.jdbc.user" value="oecobt"/>
+            <property name="javax.persistence.jdbc.password" value="oecobt"/>
+            <!--<property name="eclipselink.ddl-generation" value="drop-and-create-tables"/>-->
+        </properties>
+    </persistence-unit>
+  
+</persistence>
