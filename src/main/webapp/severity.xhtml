@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <ui:define name="top">
+        top
+    </ui:define>
+
+    <ui:define name="menuBar">
+        menuBar
+    </ui:define>
+
+    <ui:define name="content">
+
+        severity
+
+        <h:form>  
+
+            <h:panelGrid>
+                <p:commandButton id="commandButtonPrepareFormAddTop" 
+                                 value="#{msgs['addForm']}"
+                                 actionListener="#{severityManagedBean.prepareFormAdd()}" 
+                                 update=":formSeverityFields"/>
+            </h:panelGrid>
+
+        </h:form>
+
+        <h:form id="formSeverityTable">  
+
+            <p:spacer height="10" width="100%"/>
+
+            <p:dataTable id="dataTableSeverity" 
+                         var="severity" 
+                         value="#{severityManagedBean.severities}">  
+
+                <p:column headerText="#{msgs['severity.id']}">  
+                    <h:outputText value="#{severity.id}" />  
+                </p:column>  
+                <p:column headerText="#{msgs['severity.name']}">  
+                    <h:outputText value="#{severity.name}" />  
+                </p:column>  
+                 
+                <p:column headerText="Action">  
+                    <p:commandButton id="editSeverity" 
+                                     title="Edit #{severity.id}"
+                                     icon="ui-icon ui-icon-pencil"
+                                     action="#{severityManagedBean.prepareFormEdit(severity)}"
+                                     update="@form, :formSeverityFields"/>
+                    <p:commandButton id="deleteSeverity" 
+                                     title="Delete #{severity.id}"
+                                     icon="ui-icon ui-icon-trash"
+                                     action="#{severityManagedBean.prepareDelete(severity)}"
+                                     oncomplete="confirmDialogDeleteSeverity.show()"
+                                     update="@form, :formSeverityDialog"/>
+                </p:column>                   
+
+            </p:dataTable>  
+
+            <p:spacer height="10" width="100%"/>  
+
+        </h:form>  
+        <h:form>
+
+            <h:panelGrid>
+                <p:commandButton id="commandButtonPrepareFormAddBottom" 
+                                 value="Add Form" 
+                                 actionListener="#{severityManagedBean.prepareFormAdd()}" 
+                                 update=":formSeverityFields"/>
+            </h:panelGrid>
+
+        </h:form>  
+
+        <p:spacer height="25" width="100%"/>
+
+        <h:form id="formSeverityFields">
+
+            <p:tabView id="tabView">  
+                <p:tab id="tabSeverityFields" title="Severity">  
+
+                    <p:fieldset legend="#{severityManagedBean.severity.id == null?'Create Severity':'Edit Severity'}">
+
+                        <h:panelGrid columns="2">
+
+                            <p:outputLabel for="inputTextSeverityName" 
+                                           value="#{msgs['severity.name']}"/>
+                            <p:inputText id="inputTextSeverityName" 
+                                         value="#{severityManagedBean.severity.name}"/>                   
+                            
+                            <p:spacer/>
+                            <p:commandButton id="commandButtonAddSeverity" 
+                                             value="Add Severity" 
+                                             actionListener="#{severityManagedBean.addSeverity()}"
+                                             update="@form, :formSeverityTable"
+                                             rendered="#{severityManagedBean.severity.id == null}"/>
+                            <p:commandButton id="commandButtonEditSeverity" 
+                                             value="Edit Severity" 
+                                             actionListener="#{severityManagedBean.editSeverity()}"
+                                             update="@form, :formSeverityTable"
+                                             rendered="#{severityManagedBean.severity.id != null}"/>                    
+                        </h:panelGrid>
+
+                    </p:fieldset>
+                </p:tab>
+            </p:tabView>
+
+
+
+        </h:form>
+
+        <h:form id="formSeverityDialog">
+            <p:confirmDialog id="confirmDialogDeleteSeverity" 
+                             message="Delete Severity #{severityManagedBean.severity.id} ?"  
+                             header="Confirm Delete" 
+                             severity="alert" 
+                             widgetVar="confirmDialogDeleteSeverity">  
+
+                <p:commandButton id="confirm" value="Delete" 
+                                 update="@form, :formSeverityFields, :formSeverityTable"
+                                 oncomplete="confirmDialogDeleteSeverity.hide()"  
+                                 actionListener="#{severityManagedBean.deleteSeverity()}"/>  
+                <p:commandButton id="decline" value="Cancel" 
+                                 onclick="confirmDialogDeleteSeverity.hide()" 
+                                 type="button"/>   
+
+            </p:confirmDialog>     
+        </h:form>
+
+    </ui:define>
+    <ui:define name="bottom">
+        bottom
+    </ui:define>
+
+</ui:composition>

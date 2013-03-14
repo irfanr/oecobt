@@ -4,8 +4,8 @@
  */
 package com.mascova.oecobt.dao.jpa;
 
-import com.mascova.oecobt.dao.DefectDao;
-import com.mascova.oecobt.entity.Defect;
+import com.mascova.oecobt.dao.PriorityDao;
+import com.mascova.oecobt.entity.Priority;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -17,15 +17,15 @@ import javax.persistence.PersistenceContext;
  * @author irfan
  */
 @Stateless
-public class DefectDaoJpa implements Serializable, DefectDao {
+public class PriorityDaoJpa implements Serializable, PriorityDao {
 
     @PersistenceContext(unitName = "oecobtPU")
     private EntityManager em;
 
-    public DefectDaoJpa() {
+    public PriorityDaoJpa() {
     }
 
-    public DefectDaoJpa(EntityManager em) {
+    public PriorityDaoJpa(EntityManager em) {
         this.em = em;
     }
 
@@ -35,39 +35,39 @@ public class DefectDaoJpa implements Serializable, DefectDao {
     }
 
     @Override
-    public void create(Defect defect) {
-        em.persist(defect);
+    public void create(Priority priority) {
+        em.persist(priority);
     }
 
     @Override
-    public Defect find(Integer id) {
-        return em.find(Defect.class, id);
+    public Priority find(Integer id) {
+        return em.find(Priority.class, id);
     }
 
     @Override
-    public void edit(Defect defect) {
-        em.merge(defect);
+    public void edit(Priority priority) {
+        em.merge(priority);
     }
 
     @Override
-    public void delete(Defect defect) {
-        em.merge(defect);
-        em.remove(defect);
+    public void delete(Priority priority) {
+        em.merge(priority);
+        em.remove(priority);
     }
 
     @Override
     public void delete(int id) {
-        Defect defect = em.find(Defect.class, id);
-        em.remove(defect);
+        Priority priority = em.find(Priority.class, id);
+        em.remove(priority);
     }
 
     @Override
-    public List<Defect> search() {
-        return em.createQuery("select d from Defect d").getResultList();
+    public List<Priority> search() {
+        return em.createQuery("select p from Priority p").getResultList();
     }
 
     @Override
-    public List<Defect> search(int maxResults, int firstResult) {
+    public List<Priority> search(int maxResults, int firstResult) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

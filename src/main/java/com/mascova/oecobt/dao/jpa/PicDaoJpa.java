@@ -4,8 +4,9 @@
  */
 package com.mascova.oecobt.dao.jpa;
 
-import com.mascova.oecobt.dao.DefectDao;
+import com.mascova.oecobt.dao.PicDao;
 import com.mascova.oecobt.entity.Defect;
+import com.mascova.oecobt.entity.Pic;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -17,15 +18,15 @@ import javax.persistence.PersistenceContext;
  * @author irfan
  */
 @Stateless
-public class DefectDaoJpa implements Serializable, DefectDao {
+public class PicDaoJpa implements Serializable, PicDao {
 
     @PersistenceContext(unitName = "oecobtPU")
     private EntityManager em;
 
-    public DefectDaoJpa() {
+    public PicDaoJpa() {
     }
 
-    public DefectDaoJpa(EntityManager em) {
+    public PicDaoJpa(EntityManager em) {
         this.em = em;
     }
 
@@ -35,39 +36,39 @@ public class DefectDaoJpa implements Serializable, DefectDao {
     }
 
     @Override
-    public void create(Defect defect) {
-        em.persist(defect);
+    public void create(Pic pic) {
+        em.persist(pic);
     }
 
     @Override
-    public Defect find(Integer id) {
-        return em.find(Defect.class, id);
+    public Pic find(Integer id) {
+        return em.find(Pic.class, id);
     }
 
     @Override
-    public void edit(Defect defect) {
-        em.merge(defect);
+    public void edit(Pic pic) {
+        em.merge(pic);
     }
 
     @Override
-    public void delete(Defect defect) {
-        em.merge(defect);
-        em.remove(defect);
+    public void delete(Pic pic) {
+        em.merge(pic);
+        em.remove(pic);
     }
 
     @Override
     public void delete(int id) {
-        Defect defect = em.find(Defect.class, id);
-        em.remove(defect);
+        Pic pic = em.find(Pic.class, id);
+        em.remove(pic);
     }
 
     @Override
-    public List<Defect> search() {
-        return em.createQuery("select d from Defect d").getResultList();
+    public List<Pic> search() {
+        return em.createQuery("select p from Pic p").getResultList();
     }
 
     @Override
-    public List<Defect> search(int maxResults, int firstResult) {
+    public List<Pic> search(int maxResults, int firstResult) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }

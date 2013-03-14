@@ -6,14 +6,16 @@ package com.mascova.oecobt.dao;
 
 import com.mascova.oecobt.entity.Defect;
 import java.util.List;
+import javax.ejb.Local;
 
 /**
  *
  * @author irfan
  */
+@Local
 public interface DefectDao {
-    
-        int getCount();
+
+    int getCount();
 
     void create(Defect defect);
 
@@ -28,5 +30,4 @@ public interface DefectDao {
     List<Defect> search();
 
     List<Defect> search(int maxResults, int firstResult);
-    
 }

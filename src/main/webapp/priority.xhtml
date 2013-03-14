@@ -1,0 +1,138 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <ui:define name="top">
+        top
+    </ui:define>
+
+    <ui:define name="menuBar">
+        menuBar
+    </ui:define>
+
+    <ui:define name="content">
+
+        priority
+
+        <h:form>  
+
+            <h:panelGrid>
+                <p:commandButton id="commandButtonPrepareFormAddTop" 
+                                 value="#{msgs['addForm']}"
+                                 actionListener="#{priorityManagedBean.prepareFormAdd()}" 
+                                 update=":formPriorityFields"/>
+            </h:panelGrid>
+
+        </h:form>
+
+        <h:form id="formPriorityTable">  
+
+            <p:spacer height="10" width="100%"/>
+
+            <p:dataTable id="dataTablePriority" 
+                         var="priority" 
+                         value="#{priorityManagedBean.priorities}">  
+
+                <p:column headerText="#{msgs['priority.id']}">  
+                    <h:outputText value="#{priority.id}" />  
+                </p:column>  
+                <p:column headerText="#{msgs['priority.name']}">  
+                    <h:outputText value="#{priority.name}" />  
+                </p:column>  
+
+                <p:column headerText="Action">  
+                    <p:commandButton id="editPriority" 
+                                     title="Edit #{priority.id}"
+                                     icon="ui-icon ui-icon-pencil"
+                                     action="#{priorityManagedBean.prepareFormEdit(priority)}"
+                                     update="@form, :formPriorityFields"/>
+                    <p:commandButton id="deletePriority" 
+                                     title="Delete #{priority.id}"
+                                     icon="ui-icon ui-icon-trash"
+                                     action="#{priorityManagedBean.prepareDelete(priority)}"
+                                     oncomplete="confirmDialogDeletePriority.show()"
+                                     update="@form, :formPriorityDialog"/>
+                </p:column>                   
+
+            </p:dataTable>  
+
+            <p:spacer height="10" width="100%"/>  
+
+        </h:form>  
+        <h:form>
+
+            <h:panelGrid>
+                <p:commandButton id="commandButtonPrepareFormAddBottom" 
+                                 value="Add Form" 
+                                 actionListener="#{priorityManagedBean.prepareFormAdd()}" 
+                                 update=":formPriorityFields"/>
+            </h:panelGrid>
+
+        </h:form>  
+
+        <p:spacer height="25" width="100%"/>
+
+        <h:form id="formPriorityFields">
+
+            <p:tabView id="tabView">  
+                <p:tab id="tabPriorityFields" title="Priority">  
+
+                    <p:fieldset legend="#{priorityManagedBean.priority.id == null?'Create Priority':'Edit Priority'}">
+
+                        <h:panelGrid columns="2">
+
+                            <p:outputLabel for="inputTextPriorityName" 
+                                           value="#{msgs['priority.name']}"/>
+                            <p:inputText id="inputTextPriorityName" 
+                                         value="#{priorityManagedBean.priority.name}"/>
+
+                            <p:spacer/>
+                            <p:commandButton id="commandButtonAddPriority" 
+                                             value="Add Priority" 
+                                             actionListener="#{priorityManagedBean.addPriority()}"
+                                             update="@form, :formPriorityTable"
+                                             rendered="#{priorityManagedBean.priority.id == null}"/>
+                            <p:commandButton id="commandButtonEditPriority" 
+                                             value="Edit Priority" 
+                                             actionListener="#{priorityManagedBean.editPriority()}"
+                                             update="@form, :formPriorityTable"
+                                             rendered="#{priorityManagedBean.priority.id != null}"/>                    
+                        </h:panelGrid>
+
+                    </p:fieldset>
+                </p:tab>
+            </p:tabView>
+
+
+
+        </h:form>
+
+        <h:form id="formPriorityDialog">
+            <p:confirmDialog id="confirmDialogDeletePriority" 
+                             message="Delete Priority #{priorityManagedBean.priority.id} ?"  
+                             header="Confirm Delete" 
+                             severity="alert" 
+                             widgetVar="confirmDialogDeletePriority">  
+
+                <p:commandButton id="confirm" value="Delete" 
+                                 update="@form, :formPriorityFields, :formPriorityTable"
+                                 oncomplete="confirmDialogDeletePriority.hide()"  
+                                 actionListener="#{priorityManagedBean.deletePriority()}"/>  
+                <p:commandButton id="decline" value="Cancel" 
+                                 onclick="confirmDialogDeletePriority.hide()" 
+                                 type="button"/>   
+
+            </p:confirmDialog>     
+        </h:form>
+
+    </ui:define>
+    <ui:define name="bottom">
+        bottom
+    </ui:define>
+
+</ui:composition>

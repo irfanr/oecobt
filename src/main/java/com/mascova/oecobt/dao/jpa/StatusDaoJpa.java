@@ -4,8 +4,8 @@
  */
 package com.mascova.oecobt.dao.jpa;
 
-import com.mascova.oecobt.dao.DefectDao;
-import com.mascova.oecobt.entity.Defect;
+import com.mascova.oecobt.dao.StatusDao;
+import com.mascova.oecobt.entity.Status;
 import java.io.Serializable;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -17,15 +17,15 @@ import javax.persistence.PersistenceContext;
  * @author irfan
  */
 @Stateless
-public class DefectDaoJpa implements Serializable, DefectDao {
+public class StatusDaoJpa implements Serializable, StatusDao {
 
     @PersistenceContext(unitName = "oecobtPU")
     private EntityManager em;
 
-    public DefectDaoJpa() {
+    public StatusDaoJpa() {
     }
 
-    public DefectDaoJpa(EntityManager em) {
+    public StatusDaoJpa(EntityManager em) {
         this.em = em;
     }
 
@@ -35,39 +35,39 @@ public class DefectDaoJpa implements Serializable, DefectDao {
     }
 
     @Override
-    public void create(Defect defect) {
-        em.persist(defect);
+    public void create(Status status) {
+        em.persist(status);
     }
 
     @Override
-    public Defect find(Integer id) {
-        return em.find(Defect.class, id);
+    public Status find(Integer id) {
+        return em.find(Status.class, id);
     }
 
     @Override
-    public void edit(Defect defect) {
-        em.merge(defect);
+    public void edit(Status status) {
+        em.merge(status);
     }
 
     @Override
-    public void delete(Defect defect) {
-        em.merge(defect);
-        em.remove(defect);
+    public void delete(Status status) {
+        em.merge(status);
+        em.remove(status);
     }
 
     @Override
     public void delete(int id) {
-        Defect defect = em.find(Defect.class, id);
-        em.remove(defect);
+        Status status = em.find(Status.class, id);
+        em.remove(status);
     }
 
     @Override
-    public List<Defect> search() {
-        return em.createQuery("select d from Defect d").getResultList();
+    public List<Status> search() {
+        return em.createQuery("select s from Status s").getResultList();
     }
 
     @Override
-    public List<Defect> search(int maxResults, int firstResult) {
+    public List<Status> search(int maxResults, int firstResult) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 }
