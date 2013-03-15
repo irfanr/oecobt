@@ -5,12 +5,14 @@
 package com.mascova.oecobt.jsf;
 
 import com.mascova.oecobt.entity.Status;
+import com.mascova.oecobt.jsf.enumeration.Page;
 import com.mascova.oecobt.service.StatusService;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import org.primefaces.context.RequestContext;
 
@@ -36,8 +38,8 @@ public class StatusManagedBean implements Serializable {
     }
 
     @PostConstruct
-    public void init() {
-
+    private void init() {
+        
         statuses = statusService.searchStatus();
         status = new Status();
 

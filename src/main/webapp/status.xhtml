@@ -7,56 +7,58 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:pe="http://primefaces.org/ui/extensions"
                 xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
     <ui:define name="top">
         top
     </ui:define>
-
+    
+    <ui:param name="page" value="1" />
     <ui:define name="menuBar">
         menuBar
     </ui:define>
 
     <ui:define name="content">
 
-        pic
+        status
 
         <h:form>  
 
             <h:panelGrid>
                 <p:commandButton id="commandButtonPrepareFormAddTop" 
                                  value="#{msgs['addForm']}"
-                                 actionListener="#{picManagedBean.prepareFormAdd()}" 
-                                 update=":formPicFields"/>
+                                 actionListener="#{statusManagedBean.prepareFormAdd()}" 
+                                 update=":formStatusFields"/>
             </h:panelGrid>
 
         </h:form>
 
-        <h:form id="formPicTable">  
+        <h:form id="formStatusTable">  
 
             <p:spacer height="10" width="100%"/>
 
-            <p:dataTable id="dataTablePic" 
-                         var="pic" 
-                         value="#{picManagedBean.pics}">  
+            <p:dataTable id="dataTableStatus" 
+                         var="status" 
+                         value="#{statusManagedBean.statuses}">  
 
-                <p:column headerText="#{msgs['pic.id']}">  
-                    <h:outputText value="#{pic.id}" />  
+                <p:column headerText="#{msgs['status.id']}">  
+                    <h:outputText value="#{status.id}" />  
                 </p:column>  
-                <p:column headerText="#{msgs['pic.name']}">  
-                    <h:outputText value="#{pic.name}" />  
+                <p:column headerText="#{msgs['status.name']}">  
+                    <h:outputText value="#{status.name}" />  
                 </p:column>        
 
                 <p:column headerText="Action">  
-                    <p:commandButton id="editPic" 
-                                     title="Edit #{pic.id}"
+                    <p:commandButton id="editStatus" 
+                                     title="Edit #{status.id}"
                                      icon="ui-icon ui-icon-pencil"
-                                     action="#{picManagedBean.prepareFormEdit(pic)}"
-                                     update="@form, :formPicFields"/>
-                    <p:commandButton id="deletePic" 
-                                     title="Delete #{pic.id}"
+                                     action="#{statusManagedBean.prepareFormEdit(status)}"
+                                     update="@form, :formStatusFields"/>
+                    <p:commandButton id="deleteStatus" 
+                                     title="Delete #{status.id}"
                                      icon="ui-icon ui-icon-trash"
-                                     action="#{picManagedBean.prepareDelete(pic)}"
-                                     oncomplete="confirmDialogDeletePic.show()"
-                                     update="@form, :formPicDialog"/>
+                                     action="#{statusManagedBean.prepareDelete(status)}"
+                                     oncomplete="confirmDialogDeleteStatus.show()"
+                                     update="@form, :formStatusDialog"/>
                 </p:column>                   
 
             </p:dataTable>  
@@ -69,39 +71,39 @@
             <h:panelGrid>
                 <p:commandButton id="commandButtonPrepareFormAddBottom" 
                                  value="Add Form" 
-                                 actionListener="#{picManagedBean.prepareFormAdd()}" 
-                                 update=":formPicFields"/>
+                                 actionListener="#{statusManagedBean.prepareFormAdd()}" 
+                                 update=":formStatusFields"/>
             </h:panelGrid>
 
         </h:form>  
 
         <p:spacer height="25" width="100%"/>
 
-        <h:form id="formPicFields">
+        <h:form id="formStatusFields">
 
             <p:tabView id="tabView">  
-                <p:tab id="tabPicFields" title="Pic">  
+                <p:tab id="tabStatusFields" title="Status">  
 
-                    <p:fieldset legend="#{picManagedBean.pic.id == null?'Create Pic':'Edit Pic'}">
+                    <p:fieldset legend="#{statusManagedBean.status.id == null?'Create Status':'Edit Status'}">
 
                         <h:panelGrid columns="2">            
 
-                            <p:outputLabel for="inputTextPicName" 
-                                           value="#{msgs['pic.name']}"/>
-                            <p:inputText id="inputTextPicName" 
-                                         value="#{picManagedBean.pic.name}"/>                       
-                            
+                            <p:outputLabel for="inputTextStatusName" 
+                                           value="#{msgs['status.name']}"/>
+                            <p:inputText id="inputTextStatusName" 
+                                         value="#{statusManagedBean.status.name}"/>                       
+
                             <p:spacer/>
-                            <p:commandButton id="commandButtonAddPic" 
-                                             value="Add Pic" 
-                                             actionListener="#{picManagedBean.addPic()}"
-                                             update="@form, :formPicTable"
-                                             rendered="#{picManagedBean.pic.id == null}"/>
-                            <p:commandButton id="commandButtonEditPic" 
-                                             value="Edit Pic" 
-                                             actionListener="#{picManagedBean.editPic()}"
-                                             update="@form, :formPicTable"
-                                             rendered="#{picManagedBean.pic.id != null}"/>                    
+                            <p:commandButton id="commandButtonAddStatus" 
+                                             value="Add Status" 
+                                             actionListener="#{statusManagedBean.addStatus()}"
+                                             update="@form, :formStatusTable"
+                                             rendered="#{statusManagedBean.status.id == null}"/>
+                            <p:commandButton id="commandButtonEditStatus" 
+                                             value="Edit Status" 
+                                             actionListener="#{statusManagedBean.editStatus()}"
+                                             update="@form, :formStatusTable"
+                                             rendered="#{statusManagedBean.status.id != null}"/>                    
                         </h:panelGrid>
 
                     </p:fieldset>
@@ -112,19 +114,19 @@
 
         </h:form>
 
-        <h:form id="formPicDialog">
-            <p:confirmDialog id="confirmDialogDeletePic" 
-                             message="Delete Pic #{picManagedBean.pic.id} ?"  
+        <h:form id="formStatusDialog">
+            <p:confirmDialog id="confirmDialogDeleteStatus" 
+                             message="Delete Status #{statusManagedBean.status.id} ?"  
                              header="Confirm Delete" 
                              severity="alert" 
-                             widgetVar="confirmDialogDeletePic">  
+                             widgetVar="confirmDialogDeleteStatus">  
 
                 <p:commandButton id="confirm" value="Delete" 
-                                 update="@form, :formPicFields, :formPicTable"
-                                 oncomplete="confirmDialogDeletePic.hide()"  
-                                 actionListener="#{picManagedBean.deletePic()}"/>  
+                                 update="@form, :formStatusFields, :formStatusTable"
+                                 oncomplete="confirmDialogDeleteStatus.hide()"  
+                                 actionListener="#{statusManagedBean.deleteStatus()}"/>  
                 <p:commandButton id="decline" value="Cancel" 
-                                 onclick="confirmDialogDeletePic.hide()" 
+                                 onclick="confirmDialogDeleteStatus.hide()" 
                                  type="button"/>   
 
             </p:confirmDialog>     
