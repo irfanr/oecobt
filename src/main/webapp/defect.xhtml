@@ -56,15 +56,15 @@
                 <p:column headerText="#{msgs['defect.status']}">  
                     <h:outputText value="#{defect.status}" />  
                 </p:column>           
-                
+
                 <p:column headerText="#{msgs['defect.estimate']}">  
                     <h:outputText value="#{defect.estimate}" />  
                 </p:column>                       
-                
+
                 <p:column headerText="#{msgs['defect.severity']}">  
                     <h:outputText value="#{defect.severity}" />  
                 </p:column>         
-                
+
                 <p:column headerText="#{msgs['defect.priority']}">  
                     <h:outputText value="#{defect.priority}" />  
                 </p:column>                    
@@ -113,33 +113,58 @@
                             <p:outputLabel for="inputTextareaDescription" 
                                            value="#{msgs['defect.description']}"/>
                             <p:inputTextarea id="inputTextareaDescription" 
-                                         value="#{defectManagedBean.defect.description}"/>
+                                             value="#{defectManagedBean.defect.description}"
+                                             rows="5"
+                                             cols="100"
+                                             maxlength="255"/>
 
-                            <p:outputLabel for="inputTextDefectPic" 
+                            <p:outputLabel for="selectOneMenuDefectPic" 
                                            value="#{msgs['defect.pic']}"/>
-                            <p:inputText id="inputTextDefectPic" 
-                                             value="#{defectManagedBean.defect.pic}"/>                   
-
-                            <p:outputLabel for="inputTextDefectStatus" 
+                            <p:selectOneMenu id="selectOneMenuDefectPic" 
+                                             value="#{defectManagedBean.defect.pic}}">  
+                                <f:selectItems value="#{defectManagedBean.pics}" 
+                                               var="pic" 
+                                               itemLabel="#{pic.name}" 
+                                               itemValue="#{pic}"/>  
+                            </p:selectOneMenu>              
+                            
+                            <p:outputLabel for="selectOneMenuDefectStatus" 
                                            value="#{msgs['defect.status']}"/>
-                            <p:inputText id="inputTextDefectStatus" 
-                                         value="#{defectManagedBean.defect.status}"/>
+                            <p:selectOneMenu id="selectOneMenuDefectStatus" 
+                                             value="#{defectManagedBean.defect.status}}">  
+                                <f:selectItems value="#{defectManagedBean.statuses}" 
+                                               var="status" 
+                                               itemLabel="#{status.name}" 
+                                               itemValue="#{status}"/>  
+                            </p:selectOneMenu>                                
 
                             <p:outputLabel for="inputTextDefectEstimate" 
                                            value="#{msgs['defect.estimate']}"/>
                             <p:inputText id="inputTextDefectEstimate" 
-                                        value="#{defectManagedBean.defect.estimate}"/>  
+                                         value="#{defectManagedBean.defect.estimate}"
+                                         maxlength="4"
+                                         style="width: 25px"/>  
 
-                            <p:outputLabel for="inputTextDefectSeverity" 
+                            <p:outputLabel for="selectOneMenuDefectSeverity" 
                                            value="#{msgs['defect.severity']}"/>
-                            <p:inputText id="inputTextDefectSeverity" 
-                                         value="#{defectManagedBean.defect.severity}"/>
+                            <p:selectOneMenu id="selectOneMenuDefectSeverity" 
+                                             value="#{defectManagedBean.defect.severity}}">  
+                                <f:selectItems value="#{defectManagedBean.severities}" 
+                                               var="severity" 
+                                               itemLabel="#{severity.name}" 
+                                               itemValue="#{severity}"/>  
+                            </p:selectOneMenu>   
 
-                            <p:outputLabel for="inputTextDefectPriority" 
+                            <p:outputLabel for="selectOneMenuDefectPriority" 
                                            value="#{msgs['defect.priority']}"/>
-                            <p:inputText id="inputTextDefectPriority" 
-                                         value="#{defectManagedBean.defect.priority}"/>
-                            
+                            <p:selectOneMenu id="selectOneMenuDefectPriority" 
+                                             value="#{defectManagedBean.defect.priority}}">  
+                                <f:selectItems value="#{defectManagedBean.priorities}" 
+                                               var="priority" 
+                                               itemLabel="#{priority.name}" 
+                                               itemValue="#{priority}"/>  
+                            </p:selectOneMenu>   
+
                             <p:spacer/>
                             <p:commandButton id="commandButtonAddDefect" 
                                              value="Add Defect" 

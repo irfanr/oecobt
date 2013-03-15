@@ -5,7 +5,15 @@
 package com.mascova.oecobt.jsf;
 
 import com.mascova.oecobt.entity.Defect;
+import com.mascova.oecobt.entity.Pic;
+import com.mascova.oecobt.entity.Priority;
+import com.mascova.oecobt.entity.Severity;
+import com.mascova.oecobt.entity.Status;
 import com.mascova.oecobt.service.DefectService;
+import com.mascova.oecobt.service.PicService;
+import com.mascova.oecobt.service.PriorityService;
+import com.mascova.oecobt.service.SeverityService;
+import com.mascova.oecobt.service.StatusService;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -26,8 +34,20 @@ public class DefectManagedBean implements Serializable {
     public static final String FORM_DETAIL_ID = "formDefectFields";
     @EJB
     private DefectService defectService;
+    @EJB
+    private PicService picService;
+    @EJB
+    private StatusService statusService;
+    @EJB
+    private SeverityService severityService;
+    @EJB
+    private PriorityService priorityService;
     private List<Defect> defects;
     private Defect defect;
+    private List<Pic> pics;
+    private List<Status> statuses;
+    private List<Severity> severities;
+    private List<Priority> priorities;
 
     /**
      * Creates a new instance of DefectManagedBean
@@ -40,6 +60,10 @@ public class DefectManagedBean implements Serializable {
 
         defects = defectService.searchDefect();
         defect = new Defect();
+        pics = picService.searchPic();
+        statuses = statusService.searchStatus();
+        severities = severityService.searchSeverity();
+        priorities = priorityService.searchPriority();
 
     }
 
@@ -137,5 +161,61 @@ public class DefectManagedBean implements Serializable {
      */
     public void setDefect(Defect defect) {
         this.defect = defect;
+    }
+
+    /**
+     * @return the pics
+     */
+    public List<Pic> getPics() {
+        return pics;
+    }
+
+    /**
+     * @param pics the pics to set
+     */
+    public void setPics(List<Pic> pics) {
+        this.pics = pics;
+    }
+
+    /**
+     * @return the statuses
+     */
+    public List<Status> getStatuses() {
+        return statuses;
+    }
+
+    /**
+     * @param statuses the statuses to set
+     */
+    public void setStatuses(List<Status> statuses) {
+        this.statuses = statuses;
+    }
+
+    /**
+     * @return the severities
+     */
+    public List<Severity> getSeverities() {
+        return severities;
+    }
+
+    /**
+     * @param severities the severities to set
+     */
+    public void setSeverities(List<Severity> severities) {
+        this.severities = severities;
+    }
+
+    /**
+     * @return the priorities
+     */
+    public List<Priority> getPriorities() {
+        return priorities;
+    }
+
+    /**
+     * @param priorities the priorities to set
+     */
+    public void setPriorities(List<Priority> priorities) {
+        this.priorities = priorities;
     }
 }
