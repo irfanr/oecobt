@@ -15,11 +15,13 @@ import com.mascova.oecobt.service.PriorityService;
 import com.mascova.oecobt.service.SeverityService;
 import com.mascova.oecobt.service.StatusService;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.model.SelectItem;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -218,4 +220,4 @@ public class DefectManagedBean implements Serializable {
     public void setPriorities(List<Priority> priorities) {
         this.priorities = priorities;
     }
-}
+    }

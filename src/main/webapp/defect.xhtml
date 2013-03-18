@@ -50,11 +50,11 @@
                 </p:column>           
 
                 <p:column headerText="#{msgs['defect.pic']}">  
-                    <h:outputText value="#{defect.pic}" />  
+                    <h:outputText value="#{defect.pic.name}" />  
                 </p:column>              
 
                 <p:column headerText="#{msgs['defect.status']}">  
-                    <h:outputText value="#{defect.status}" />  
+                    <h:outputText value="#{defect.status.name}" />  
                 </p:column>           
 
                 <p:column headerText="#{msgs['defect.estimate']}">  
@@ -62,11 +62,11 @@
                 </p:column>                       
 
                 <p:column headerText="#{msgs['defect.severity']}">  
-                    <h:outputText value="#{defect.severity}" />  
+                    <h:outputText value="#{defect.severity.name}" />  
                 </p:column>         
 
                 <p:column headerText="#{msgs['defect.priority']}">  
-                    <h:outputText value="#{defect.priority}" />  
+                    <h:outputText value="#{defect.priority.name}" />  
                 </p:column>                    
 
                 <p:column headerText="Action">  
@@ -121,23 +121,25 @@
                             <p:outputLabel for="selectOneMenuDefectPic" 
                                            value="#{msgs['defect.pic']}"/>
                             <p:selectOneMenu id="selectOneMenuDefectPic" 
-                                             value="#{defectManagedBean.defect.pic}}">  
+                                             value="#{defectManagedBean.defect.pic}"
+                                             converter="#{picConverter}">  
                                 <f:selectItems value="#{defectManagedBean.pics}" 
                                                var="pic" 
                                                itemLabel="#{pic.name}" 
                                                itemValue="#{pic}"/>  
                             </p:selectOneMenu>              
-                            
+          
                             <p:outputLabel for="selectOneMenuDefectStatus" 
                                            value="#{msgs['defect.status']}"/>
                             <p:selectOneMenu id="selectOneMenuDefectStatus" 
-                                             value="#{defectManagedBean.defect.status}}">  
+                                             value="#{defectManagedBean.defect.status}"
+                                             converter="#{statusConverter}">  
                                 <f:selectItems value="#{defectManagedBean.statuses}" 
                                                var="status" 
                                                itemLabel="#{status.name}" 
                                                itemValue="#{status}"/>  
                             </p:selectOneMenu>                                
-
+                                    
                             <p:outputLabel for="inputTextDefectEstimate" 
                                            value="#{msgs['defect.estimate']}"/>
                             <p:inputText id="inputTextDefectEstimate" 
@@ -148,7 +150,8 @@
                             <p:outputLabel for="selectOneMenuDefectSeverity" 
                                            value="#{msgs['defect.severity']}"/>
                             <p:selectOneMenu id="selectOneMenuDefectSeverity" 
-                                             value="#{defectManagedBean.defect.severity}}">  
+                                             value="#{defectManagedBean.defect.severity}"
+                                             converter="#{severityConverter}">  
                                 <f:selectItems value="#{defectManagedBean.severities}" 
                                                var="severity" 
                                                itemLabel="#{severity.name}" 
@@ -158,7 +161,8 @@
                             <p:outputLabel for="selectOneMenuDefectPriority" 
                                            value="#{msgs['defect.priority']}"/>
                             <p:selectOneMenu id="selectOneMenuDefectPriority" 
-                                             value="#{defectManagedBean.defect.priority}}">  
+                                             value="#{defectManagedBean.defect.priority}"
+                                             converter="#{priorityConverter}">  
                                 <f:selectItems value="#{defectManagedBean.priorities}" 
                                                var="priority" 
                                                itemLabel="#{priority.name}" 
