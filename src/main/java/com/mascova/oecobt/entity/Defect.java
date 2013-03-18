@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "defect")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Defect.findAll", query = "SELECT d FROM Defect d"),
+    @NamedQuery(name = Defect.FIND_ALL, query = "SELECT d FROM Defect d"),
     @NamedQuery(name = "Defect.findById", query = "SELECT d FROM Defect d WHERE d.id = :id"),
     @NamedQuery(name = "Defect.findByDescription", query = "SELECT d FROM Defect d WHERE d.description = :description"),
     @NamedQuery(name = "Defect.findByNotes", query = "SELECT d FROM Defect d WHERE d.notes = :notes"),
@@ -60,6 +60,12 @@ public class Defect implements Serializable {
     @JoinColumn(name = "pic", referencedColumnName = "id")
     @ManyToOne
     private Pic pic;
+    
+    // ======================================
+    // =             Constants              =
+    // ======================================
+
+    public static final String FIND_ALL = "Defect.findAll";    
 
     public Defect() {
     }

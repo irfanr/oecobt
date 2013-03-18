@@ -11,6 +11,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -63,7 +64,8 @@ public class DefectDaoJpa implements Serializable, DefectDao {
 
     @Override
     public List<Defect> search() {
-        return em.createQuery("select d from Defect d").getResultList();
+        TypedQuery<Defect> typedQuery = em.createNamedQuery(Defect.FIND_ALL, Defect.class);
+        return typedQuery.getResultList();
     }
 
     @Override
