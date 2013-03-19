@@ -5,6 +5,7 @@
 package com.mascova.oecobt.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,6 +17,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -45,6 +48,8 @@ public class Defect implements Serializable {
     @Size(max = 255)
     @Column(name = "notes")
     private String notes;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date startDate;    
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "estimate")
     private Double estimate;
@@ -96,6 +101,14 @@ public class Defect implements Serializable {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public Double getEstimate() {
