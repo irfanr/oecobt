@@ -56,6 +56,10 @@
                 <p:column headerText="#{msgs['defect.status']}">  
                     <h:outputText value="#{defect.status.name}" />  
                 </p:column>           
+                
+                <p:column headerText="#{msgs['defect.startDate']}">  
+                    <h:outputText value="#{defect.startDate}" />  
+                </p:column>                     
 
                 <p:column headerText="#{msgs['defect.estimate']}">  
                     <h:outputText value="#{defect.estimate}" />  
@@ -138,7 +142,13 @@
                                                var="status" 
                                                itemLabel="#{status.name}" 
                                                itemValue="#{status}"/>  
-                            </p:selectOneMenu>                                
+                            </p:selectOneMenu>        
+                            
+                            <p:outputLabel for="calendarDefectStartDate" 
+                                           value="#{msgs['defect.startDate']}"/>                            
+                            <p:calendar id="calendarDefectStartDate" 
+                                        value="#{defectManagedBean.defect.startDate}" 
+                                        pattern="MM/dd/yyyy HH:mm" />
                                     
                             <p:outputLabel for="inputTextDefectEstimate" 
                                            value="#{msgs['defect.estimate']}"/>
