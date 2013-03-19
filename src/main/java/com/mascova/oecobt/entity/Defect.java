@@ -53,6 +53,8 @@ public class Defect implements Serializable {
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "estimate")
     private Double estimate;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date endDate;        
     @JoinColumn(name = "status", referencedColumnName = "id")
     @ManyToOne
     private Status status;
@@ -117,6 +119,20 @@ public class Defect implements Serializable {
 
     public void setEstimate(Double estimate) {
         this.estimate = estimate;
+    }
+
+    /**
+     * @return the endDate
+     */
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    /**
+     * @param endDate the endDate to set
+     */
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public Status getStatus() {
