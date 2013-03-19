@@ -16,6 +16,35 @@
     </properties>
     <profiles>
         <profile>
+            <id>local</id>
+            <properties>
+                <env>local</env>
+            </properties>
+            <activation>
+                <activeByDefault>true</activeByDefault> <!-- Local Profile Active By Default-->
+            </activation>            
+        </profile>            
+        <profile>
+            <id>dev</id>
+            <properties>
+                <env>development</env>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>qa</id>
+            <properties>
+                <env>qa</env>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>prod</id>
+            <properties>
+                <env>production</env>
+            </properties>
+        </profile>    
+        <profile>
             <id>netbeans-private-testng</id>
             <activation>
                 <property>
@@ -73,7 +102,7 @@
             <artifactId>jsf-impl</artifactId>
             <version>2.1.15</version>
         </dependency>
-<!--        <dependency>
+        <!--        <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <version>2.3.2</version>
@@ -129,6 +158,21 @@
     </dependencies>
 
     <build>
+        
+        <!--get filtered value to be injected to persistence.xml and glassfish-resource.xml @ src/main/application/META-INF-->
+        <filters>
+            <filter>src/main/filters/filter-${env}.properties</filter> <!-- ${env} default to "development" -->
+        </filters>
+
+        <resources>
+            <!--locate resource files to be injected value from filtered source-->
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>            
+
+        </resources>
+                
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
