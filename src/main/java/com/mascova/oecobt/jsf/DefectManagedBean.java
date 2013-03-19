@@ -15,11 +15,15 @@ import com.mascova.oecobt.service.PriorityService;
 import com.mascova.oecobt.service.SeverityService;
 import com.mascova.oecobt.service.StatusService;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeConstants;
+import org.joda.time.Hours;
 import org.primefaces.context.RequestContext;
 
 /**
@@ -64,12 +68,14 @@ public class DefectManagedBean implements Serializable {
         statuses = statusService.searchStatus();
         severities = severityService.searchSeverity();
         priorities = priorityService.searchPriority();
+        setFormDefaultValues();        
 
     }
 
     public void prepareFormAdd() {
 
         this.defect = new Defect();
+        setFormDefaultValues();
 
         // Scroll to form 
         scrollToForm(FORM_DETAIL_ID);
@@ -218,4 +224,26 @@ public class DefectManagedBean implements Serializable {
     public void setPriorities(List<Priority> priorities) {
         this.priorities = priorities;
     }
+
+    private void setFormDefaultValues() {
+        
+        // Set default value for Start Date
+        DateTime dt = new DateTime();
+        dt = dt.withHourOfDay(8).withMinuteOfHour(0);
+        defect.setStartDate(dt.toDate());
+        
+        // Set default value for estimate
+        defect.setEstimate(1.0);
+        
+        // Set default value for End Date        
+        calculateEndDate();
     }
+    
+    public void calculateEndDate(){
+        
+        DateTime dt = new DateTime( defect.getStartDate() );
+        Double plusMinutes = defect.getEstimate()*60;
+        dt = dt.plusMinutes( plusMinutes.intValue() );
+        defect.setEndDate(dt.toDate());
+    }
+}
