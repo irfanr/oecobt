@@ -19,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonParser;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -44,25 +45,33 @@ public class GanttChartServlet extends HttpServlet {
         response.setContentType("application/json");
         PrintWriter out = response.getWriter();
 
+        DateTime dt = new DateTime();
+        new DateTime(2011, 2, 1, 8, 0).getMillis();
+        System.out.println("new DateTime(2011, 2, 1, 8, 0).getMillis(): "+new DateTime(2011, 2, 1, 8, 0).getMillis());
+        
+        // _____________________________________________________________________
+        //
+        // BEGIN added dummy gantt chart data 
+        // _____________________________________________________________________
         List<GanttChartItem> ganttChartItemList = new ArrayList();
-        
-        List<GanttChartValue> values = new ArrayList();        
-        values.add(new GanttChartValue(
-                "/Date(1320192000000)/",
-                "/Date(1322401600000)/",
-                "",
+
+        List<GanttChartValue> values = new ArrayList();
+
+        GanttChartItem gci1 = new GanttChartItem(
+                "Sprint 0", 
+                "Analysis");
+        List<GanttChartValue> values1 = new ArrayList();
+        values1.add(new GanttChartValue(
+                "/Date("+new DateTime(2011, 11, 3, 8, 0).getMillis()+")/",
+                "/Date("+new DateTime(2011, 11, 28, 9, 0).getMillis()+")/",
                 "Requirement Gathering",
-                "ganttRed"));        
-        
-        GanttChartItem gci1 = new GanttChartItem("name1", "desc1");
-        gci1.setValues(values);
-        ganttChartItemList.add(gci1);
-        GanttChartItem gci2 = new GanttChartItem("name2", "desc2");
-        gci2.setValues(values);
-        ganttChartItemList.add(gci2);
-        GanttChartItem gci3 = new GanttChartItem("name3", "desc3");
-        gci3.setValues(values);
-        ganttChartItemList.add(gci3);        
+                "ganttRed"));
+        gci1.setValues(values1);
+        ganttChartItemList.add(gci1);                                   
+        // _____________________________________________________________________
+        //
+        // END added dummy gantt chart data 
+        // _____________________________________________________________________        
 
         ObjectMapper mapper = new ObjectMapper();
 //        mapper.configure(JsonGenerator.Feature.QUOTE_FIELD_NAMES, false);

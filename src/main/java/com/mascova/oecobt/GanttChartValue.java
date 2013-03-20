@@ -14,17 +14,15 @@ public class GanttChartValue implements Serializable{
     
     private String to;
     private String from;
-    private String desc;
     private String label;
     private String customClass;
 
     public GanttChartValue() {
     }
 
-    public GanttChartValue(String to, String from, String desc, String label, String customClass) {
+    public GanttChartValue(String to, String from, String label, String customClass) {
         this.to = to;
         this.from = from;
-        this.desc = desc;
         this.label = label;
         this.customClass = customClass;
     }
@@ -55,20 +53,6 @@ public class GanttChartValue implements Serializable{
      */
     public void setFrom(String from) {
         this.from = from;
-    }
-
-    /**
-     * @return the desc
-     */
-    public String getDesc() {
-        return desc;
-    }
-
-    /**
-     * @param desc the desc to set
-     */
-    public void setDesc(String desc) {
-        this.desc = desc;
     }
 
     /**
