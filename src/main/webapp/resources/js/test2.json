@@ -1,10 +1,10 @@
 [{
-        "name": "Sprint 0",
-        "desc": "Analysis",
-        "values": [{
-                "from": "/Date(1320426000000)/",
-                "to": "/Date(1322413200000)/",
-                "label": "Requirement Gathering", 
-                "customClass": "ganttRed"
+        "name":"Sprint 0",
+        "desc":"Analysis",
+        "values":[{
+                "from":"/Date(1320426000000)/",
+                "to":"/Date(1322413200000)/",                
+                "label":"Requirement Gathering", 
+                "customClass":"ganttRed"
             }]
     }]
