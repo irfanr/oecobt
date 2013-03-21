@@ -15,6 +15,8 @@
 
         <h:form id="formRegister">
 
+            <p:growl id="growl" showDetail="true"/>  
+            
             <p:panelGrid columns="2">  
                 <f:facet name="header">  
                     Register
@@ -39,7 +41,8 @@
                 <p:password id="inputTextPassword" 
                             value="#{registerBean.login.password}" 
                             required="true" 
-                            label="Password"/>  
+                            label="Password"
+                            match="inputTextPasswordAgain"/>  
 
                 <h:outputLabel for="inputTextPasswordAgain" 
                                value="#{msgs['login.passwordAgain']}: " />  

@@ -7,11 +7,13 @@ package com.mascova.oecobt.jsf;
 import com.mascova.oecobt.entity.Login;
 import com.mascova.oecobt.entity.Pic;
 import com.mascova.oecobt.service.LoginService;
-import com.mascova.oecobt.service.PicService;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -23,26 +25,26 @@ public class RegisterBean {
 
     @EJB
     private LoginService loginService;
-    
     private Login login;
-    
+
     /**
      * Creates a new instance of RegisterBean
      */
     public RegisterBean() {
     }
-    
+
     @PostConstruct
-    private void init(){
-        
-        login = new Login();
-        login.setPic( new Pic() );
-        
+    private void init() {
+
+        setDefaultValues();
+
     }
-    
-    public void register(){
-        
+
+    public void register() {
+
         loginService.register(login);
+        setDefaultValues();
+
     }
 
     /**
@@ -59,4 +61,8 @@ public class RegisterBean {
         this.login = login;
     }
 
+    private void setDefaultValues() {
+        login = new Login();
+        login.setPic(new Pic());
+    }
 }
