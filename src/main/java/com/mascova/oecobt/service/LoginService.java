@@ -6,12 +6,10 @@ package com.mascova.oecobt.service;
 
 import com.mascova.oecobt.dao.LoginDao;
 import com.mascova.oecobt.entity.Login;
-import com.mascova.oecobt.entity.Pic;
 import com.mascova.oecobt.util.OecobtDigester;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import org.apache.commons.lang3.StringUtils;
 
 /**
  *
