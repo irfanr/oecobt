@@ -22,8 +22,6 @@ import javax.faces.bean.ViewScoped;
 public class RegisterBean {
 
     @EJB
-    private PicService picService;
-    @EJB
     private LoginService loginService;
     
     private Login login;
