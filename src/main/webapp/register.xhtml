@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="template-nomenu.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:pe="http://primefaces.org/ui/extensions"
+                xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+    <ui:define name="top">
+        top
+    </ui:define>
+
+    <ui:define name="content">
+
+        <h:form id="formRegister">
+
+            <p:panelGrid columns="2">  
+                <f:facet name="header">  
+                    Register
+                </f:facet>  
+
+                <h:outputLabel for="inputTextLogin" 
+                               value="#{msgs['login.login']}: " />  
+                <p:inputText id="inputTextLogin" 
+                             value="#{registerBean.login.login}" 
+                             required="true" 
+                             label="Login" />  
+
+                <h:outputLabel for="inputTextPicName" 
+                               value="#{msgs['pic.name']}: " />  
+                <p:inputText id="inputTextPicName" 
+                             value="#{registerBean.login.pic.name}" 
+                             required="true" 
+                             label="Login" />              
+
+                <h:outputLabel for="inputTextPassword" 
+                               value="#{msgs['login.password']}: " />  
+                <p:password id="inputTextPassword" 
+                            value="#{registerBean.login.password}" 
+                            required="true" 
+                            label="Password"/>  
+
+                <h:outputLabel for="inputTextPasswordAgain" 
+                               value="#{msgs['login.passwordAgain']}: " />  
+                <p:password id="inputTextPasswordAgain" 
+                            value="#{registerBean.login.passwordAgain}" 
+                            required="true" 
+                            label="Password Again"/>              
+
+                <f:facet name="footer">  
+                    <p:commandButton id="commandButtonRegister" 
+                                     value="#{msgs['register']}" 
+                                     actionListener="#{registerBean.register()}"
+                                     update="@form"/>
+                </f:facet>
+            </p:panelGrid>  
+
+        </h:form>
+
+    </ui:define>
+    <ui:define name="bottom">
+        bottom
+    </ui:define>
+
+</ui:composition>
