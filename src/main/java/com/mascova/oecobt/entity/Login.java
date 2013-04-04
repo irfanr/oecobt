@@ -27,11 +27,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Table(name = "login")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = Login.FIND_ALL, query = "SELECT l FROM Login l")})
+    @NamedQuery(name = Login.FIND_ALL, query = "SELECT l FROM Login l"),
+    @NamedQuery(name = Login.FIND_BY_LOGIN, query = "SELECT l FROM Login l WHERE l.login = :login")})
 public class Login implements Serializable {
 
     private static long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -44,15 +44,14 @@ public class Login implements Serializable {
     @Transient
     private String passwordAgain;
     @OneToOne
-    @JoinColumn(name="pic_id")
+    @JoinColumn(name = "pic_id")
     private Pic pic;
-
     // ======================================
     // =             Constants              =
     // ======================================
+    public static final String FIND_ALL = "Login.findAll";
+    public static final String FIND_BY_LOGIN = "Login.findByLogin";
 
-    public static final String FIND_ALL = "Login.findAll";        
-    
     /**
      * @return the id
      */

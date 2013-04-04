@@ -6,10 +6,13 @@ package com.mascova.oecobt.service;
 
 import com.mascova.oecobt.dao.LoginDao;
 import com.mascova.oecobt.entity.Login;
+import com.mascova.oecobt.exception.PasswordNotMatchException;
 import com.mascova.oecobt.util.OecobtDigester;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
+import javax.security.auth.login.LoginException;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -58,6 +61,25 @@ public class LoginService {
         login.setPassword(OecobtDigester.hash(login.getPassword()));
         loginDao.create(login);
 
+
+    }
+
+    public Login login(Login login) throws LoginException, PasswordNotMatchException {
+
+        Login loginFromDb = loginDao.findByLogin(login.getLogin());
+
+        if (loginFromDb != null) {
+            
+            if( StringUtils.equals(loginFromDb.getPassword(), OecobtDigester.hash(login.getPassword())) ){
+                return loginFromDb;
+            }
+            else{
+                throw new PasswordNotMatchException("Password Not Match");
+            }
+            
+        } else {
+            throw new LoginException("Authentication failed");
+        }
 
     }
 }

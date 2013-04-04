@@ -21,6 +21,8 @@ public interface LoginDao {
 
     Login find(Integer id);
 
+    Login findByLogin(String login);
+
     void edit(Login login);
 
     void delete(Login login);

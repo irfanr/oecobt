@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
-                template="template.xhtml"
+                template="template-nomenu.xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:p="http://primefaces.org/ui"
@@ -13,22 +13,39 @@
 
     <ui:define name="content">
 
-        <p:panelGrid columns="2">  
-            <f:facet name="header">  
-                Login Page
-            </f:facet>  
+        <h:form id="formLogin">
 
-            <h:outputLabel for="firstname" value="#{msgs['pic.login']}: " />  
-            <p:inputText id="inputTextLogin" value="" required="true" label="Login" />  
-
-            <h:outputLabel for="surname" value="#{msgs['pic.password']}: " />  
-            <p:password id="inputTextPassword" value="" required="true" label="Password"/>  
+            <p:growl id="growl" showDetail="true"/>  
             
-            <f:facet name="footer">  
-                <p:commandButton type="button" value="Save" icon="ui-icon-check" style="margin:0"/>  
-            </f:facet>  
-        </p:panelGrid>  
+            <p:panelGrid columns="2">  
+                <f:facet name="header">  
+                    Login
+                </f:facet>  
 
+                <h:outputLabel for="inputTextLogin" 
+                               value="#{msgs['login.login']}: " />  
+                <p:inputText id="inputTextLogin" 
+                             value="#{loginBean.login.login}" 
+                             required="true" 
+                             label="Login" />              
+
+                <h:outputLabel for="inputTextPassword" 
+                               value="#{msgs['login.password']}: " />  
+                <p:password id="inputTextPassword" 
+                            value="#{loginBean.login.password}" 
+                            required="true" 
+                            label="Password"/>  
+          
+
+                <f:facet name="footer">  
+                    <p:commandButton id="commandButtonLogin" 
+                                     value="#{msgs['login']}" 
+                                     actionListener="#{loginBean.doLogin()}"
+                                     update="@form"/>
+                </f:facet>
+            </p:panelGrid>  
+
+        </h:form>
 
     </ui:define>
     <ui:define name="bottom">

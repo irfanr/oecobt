@@ -10,6 +10,7 @@ import com.mascova.oecobt.entity.Pic;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
@@ -18,7 +19,7 @@ import javax.persistence.TypedQuery;
  * @author irfan
  */
 @Stateless
-public class LoginDaoJpa implements LoginDao{
+public class LoginDaoJpa implements LoginDao {
 
     @PersistenceContext(unitName = "oecobtPU")
     private EntityManager em;
@@ -48,6 +49,17 @@ public class LoginDaoJpa implements LoginDao{
     }
 
     @Override
+    public Login findByLogin(String login) {
+        try {
+            TypedQuery<Login> typedQuery = em.createNamedQuery(Login.FIND_BY_LOGIN, Login.class);
+            typedQuery.setParameter("login", login);
+            return typedQuery.getSingleResult();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
+
+    @Override
     public void edit(Login login) {
         em.merge(login);
     }
@@ -74,5 +86,4 @@ public class LoginDaoJpa implements LoginDao{
     public List<Login> search(int maxResults, int firstResult) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
 }
