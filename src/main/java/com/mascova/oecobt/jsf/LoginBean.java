@@ -5,7 +5,6 @@
 package com.mascova.oecobt.jsf;
 
 import com.mascova.oecobt.entity.Login;
-import com.mascova.oecobt.entity.Pic;
 import com.mascova.oecobt.exception.PasswordNotMatchException;
 import com.mascova.oecobt.service.LoginService;
 import java.io.IOException;
@@ -17,6 +16,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.security.auth.login.LoginException;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -25,26 +25,32 @@ import javax.security.auth.login.LoginException;
 @ManagedBean
 @SessionScoped
 public class LoginBean {
-    
+
+    private HttpSession session;
     @EJB
     private LoginService loginService;
     private Login login;
-    
+
     @PostConstruct
     private void init() {
 
         setDefaultValues();
 
     }
-    
+
     private void setDefaultValues() {
+        session = null;
         login = new Login();
-    }        
-    
-    public void doLogin(){
+    }
+
+    public void doLogin() {
         try {
             loginService.login(login);
-            
+
+            session = (HttpSession) FacesContext.getCurrentInstance()
+                    .getExternalContext().getSession(true);
+            session.setAttribute("login", login);
+
             doRedirect("/");
         } catch (LoginException ex) {
             Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
@@ -52,7 +58,23 @@ public class LoginBean {
             Logger.getLogger(LoginBean.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
+    public void verifyLogin() {
+        if (login.getLogin() == null) {
+            doRedirect("/");
+        }
+    }
+
+    public void logout() {
+
+        login = new Login();
+
+        session.removeAttribute("login");
+        session.invalidate();
+
+        doRedirect("/");
+    }
+
     /*
      * method to getting session time FacesContext facesContext =
      * FacesContext.getCurrentInstance(); ExternalContext externalContext =
@@ -66,7 +88,7 @@ public class LoginBean {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }    
+    }
 
     /**
      * Creates a new instance of LoginBean
