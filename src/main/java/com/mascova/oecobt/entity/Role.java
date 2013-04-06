@@ -7,6 +7,7 @@ package com.mascova.oecobt.entity;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,43 +16,40 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 /**
  *
  * @author irfan
  */
 @Entity
-@Table(name = "pic")
+@Table(name = "role")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Pic.findAll", query = "SELECT p FROM Pic p"),
-    @NamedQuery(name = "Pic.findById", query = "SELECT p FROM Pic p WHERE p.id = :id"),
-    @NamedQuery(name = "Pic.findByName", query = "SELECT p FROM Pic p WHERE p.name = :name")})
-public class Pic implements Serializable {
-
+    @NamedQuery(name = "Role.findAll", query = "SELECT r FROM Role r"),
+    @NamedQuery(name = "Role.findById", query = "SELECT r FROM Role r WHERE r.id = :id"),
+    @NamedQuery(name = "Role.findByName", query = "SELECT r FROM Role r WHERE r.name = :name")})
+public class Role implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Size(max = 255)
+    @Size(max = 75)
     @Column(name = "name")
     private String name;
-    @OneToOne(mappedBy="pic")
-    private Login login;
-    @OneToMany(mappedBy = "pic")
-    private Collection<Defect> defectCollection;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
+    private Collection<LoginRole> loginRoleCollection;
 
-    public Pic() {
+    public Role() {
     }
 
-    public Pic(Integer id) {
+    public Role(Integer id) {
         this.id = id;
     }
 
@@ -72,12 +70,13 @@ public class Pic implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Defect> getDefectCollection() {
-        return defectCollection;
+    @JsonIgnore
+    public Collection<LoginRole> getLoginRoleCollection() {
+        return loginRoleCollection;
     }
 
-    public void setDefectCollection(Collection<Defect> defectCollection) {
-        this.defectCollection = defectCollection;
+    public void setLoginRoleCollection(Collection<LoginRole> loginRoleCollection) {
+        this.loginRoleCollection = loginRoleCollection;
     }
 
     @Override
@@ -90,10 +89,10 @@ public class Pic implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pic)) {
+        if (!(object instanceof Role)) {
             return false;
         }
-        Pic other = (Pic) object;
+        Role other = (Role) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -102,20 +101,7 @@ public class Pic implements Serializable {
 
     @Override
     public String toString() {
-        return "com.mascova.oecobt.entity.Pic[ id=" + id + " ]";
+        return "com.mascova.oecobt.entity.Role[ id=" + id + " ]";
     }
-
-    /**
-     * @return the login
-     */
-    public Login getLogin() {
-        return login;
-    }
-
-    /**
-     * @param login the login to set
-     */
-    public void setLogin(Login login) {
-        this.login = login;
-    }
+    
 }
