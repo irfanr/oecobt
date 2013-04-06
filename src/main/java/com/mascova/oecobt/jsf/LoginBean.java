@@ -25,6 +25,8 @@ import javax.servlet.http.HttpSession;
 @ManagedBean
 @SessionScoped
 public class LoginBean {
+    
+    public static final String LOGIN_PAGE = "/login.jsf";
 
     private HttpSession session;
     @EJB
@@ -61,7 +63,7 @@ public class LoginBean {
 
     public void verifyLogin() {
         if (login.getLogin() == null) {
-            doRedirect("/");
+            doRedirect(LOGIN_PAGE);
         }
     }
 
@@ -72,7 +74,7 @@ public class LoginBean {
         session.removeAttribute("login");
         session.invalidate();
 
-        doRedirect("/");
+        doRedirect(LOGIN_PAGE);
     }
 
     /*
